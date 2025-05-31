@@ -3,7 +3,482 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio Sample</title>
+    <title>Portfolio <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio</title>
+    <style>
+        /* Classic yet cute styling */
+        :root {
+            --primary: #f8b195;
+            --secondary: #f67280;
+            --accent: #c06c84;
+            --dark: #355c7d;
+            --light: #fef6f6;
+        }
+        
+        body {
+            font-family: 'Georgia', serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--light);
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        header {
+            background: 
+                linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)),
+                url('Shokku Eating Eye.jpg') center/cover;
+            padding: 3rem 2rem;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+        
+        h1 {
+            margin: 0;
+            font-size: 2.8rem;
+            font-weight: normal;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .tagline {
+            font-style: italic;
+            font-size: 1.2rem;
+            margin-top: 0.5rem;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .about {
+            background-color: white;
+            padding: 3rem;
+            margin: 3rem auto;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            position: relative;
+            max-width: 800px;
+        }
+        
+        /* Decorative divider */
+        .divider {
+            text-align: center;
+            margin: 4rem 0;
+            position: relative;
+        }
+        
+        .divider:before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--accent), transparent);
+            z-index: -1;
+        }
+        
+        .divider-content {
+            display: inline-block;
+            background: var(--light);
+            padding: 0 2rem;
+            font-size: 1.5rem;
+            color: var(--accent);
+        }
+        
+        /* Sliding gallery */
+        .gallery-container {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+        
+        .gallery {
+            display: flex;
+            transition: transform 0.5s ease;
+            padding: 1rem 0;
+        }
+        
+        .artwork {
+            min-width: 300px;
+            margin: 0 1rem;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .artwork:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+        
+        .artwork img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .artwork-info {
+            padding: 1.5rem;
+            text-align: center;
+        }
+        
+        .artwork-info h3 {
+            margin: 0 0 0.5rem;
+            color: var(--dark);
+        }
+        
+        .artwork-info p {
+            margin: 0;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .gallery-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+            z-index: 10;
+            border: none;
+            color: var(--accent);
+            font-size: 1.5rem;
+        }
+        
+        .gallery-nav:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .prev {
+            left: -25px;
+        }
+        
+        .next {
+            right: -25px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: linear-gradient(135deg, var(--dark), #2a4365);
+            color: white;
+            margin-top: 4rem;
+        }
+        
+        .contact-btn {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            margin-top: 1.5rem;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+        }
+        
+        .contact-btn:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        }
+        
+        /* Lightbox styles */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .lightbox.active {
+            display: flex;
+        }
+        
+        .lightbox-content {
+            max-width: 90%;
+            max-height: 90%;
+        }
+        
+        .lightbox-content img {
+            max-width: 100%;
+            max-height: 80vh;
+            border: 3px solid white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+        
+        .lightbox-info {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            color: white;
+            padding: 1rem;
+            background: rgba(0,0,0,0.7);
+        }
+        
+        .close-lightbox {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+        
+        @media (max-width: 768px) {
+            header {
+                padding: 2rem 1rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .gallery-nav {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .prev {
+                left: -15px;
+            }
+            
+            .next {
+                right: -15px;
+            }
+            
+            .about {
+                padding: 2rem;
+            }
+            
+            .lightbox-content {
+                max-width: 95%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Jea's Haven</h1>
+        <p class="tagline">Classic beauty with a touch of whimsy</p>
+    </header>
+    
+    <div class="container">
+        <section class="about">
+            <h2>About Me</h2>
+            <p>Hello! I am J, a multimedia arts student, specializing in digital illustrations.</p>
+            <p>My skills focus more on: illustration making, simple 2d animations, and basic 3d modelling.</p>
+            <button class="contact-btn">Get In Touch</button>
+        </section>
+        
+        <div class="divider">
+            <span class="divider-content">✿ Gallery ✿</span>
+        </div>
+        
+        <div class="gallery-container">
+            <button class="gallery-nav prev">❮</button>
+            <button class="gallery-nav next">❯</button>
+            
+            <div class="gallery">
+                <!-- Artwork 1 -->
+                <div class="artwork" data-title="Shokku Eating" data-medium="Digital Illustration, 2024">
+                    <img src="Shokku Eating.jpg" alt="Shokku Eating">
+                    <div class="artwork-info">
+                        <h3>Shokku Eating</h3>
+                        <p>Digital Illustration, 2024</p>
+                    </div>
+                </div>
+                
+                <!-- Artwork 2 -->
+                <div class="artwork" data-title="Ekko & Miles" data-medium="Alternative Digital Illustration, 2025">
+                    <img src="Ekko & Miles.jfif" alt="Ekko & Miles">
+                    <div class="artwork-info">
+                        <h3>Ekko & Miles</h3>
+                        <p>Alternative Digital Illustration, 2025</p>
+                    </div>
+                </div>
+                
+                <!-- Artwork 3 -->
+                <div class="artwork" data-title="True Damage Ekko" data-medium="Digital Illustration, 2025">
+                    <img src="True Damage Ekko.jpg" alt="True Damage Ekko">
+                    <div class="artwork-info">
+                        <h3>True Damage Ekko</h3>
+                        <p>Digital Illustration, 2025</p>
+                    </div>
+                </div>
+                
+                <!-- Artwork 4 -->
+                <div class="artwork" data-title="Morning Tea" data-medium="Oil on canvas, 2022">
+                    <img src="Shizzako Full Render Commission.jfif" alt="Still Life">
+                    <div class="artwork-info">
+                        <h3>Shizzako Full Render Commission</h3>
+                        <p>Digital Illustration, 2025</p>
+                    </div>
+                </div>
+                
+                <!-- Artwork 5 -->
+                <div class="artwork" data-title="Chibi Commission" data-medium="Digital Illustration, 2025">
+                    <img src="Chibi Commission.jpg" alt="Digital Illustration, 2025">
+                    <div class="artwork-info">
+                        <h3>Chibi Commission</h3>
+                        <p>Digital Illustration, 2025</p>
+                    </div>
+                </div>
+                
+                <!-- Artwork 6 -->
+                <div class="artwork" data-title="Legacy" data-medium="Digital Illustration, 2024">
+                    <img src="Legacy.jpg" alt="Legacy">
+                    <div class="artwork-info">
+                        <h3>Legacy</h3>
+                        <p>Digital Illustration, 2024</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Lightbox HTML -->
+    <div class="lightbox">
+        <button class="close-lightbox">&times;</button>
+        <div class="lightbox-content">
+            <img src="Shokku Eating Eye.jpg" alt="" id="lightbox-image">
+            <div class="lightbox-info">
+                <h3 id="lightbox-title"></h3>
+                <p id="lightbox-medium"></p>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>&copy; 2025 Jea's Haven. All rights reserved.</p>
+    </footer>
+    
+    <script>
+        // Looping sliding gallery functionality
+        const gallery = document.querySelector('.gallery');
+        const prevBtn = document.querySelector('.prev');
+        const nextBtn = document.querySelector('.next');
+        const artworks = document.querySelectorAll('.artwork');
+        const artworkWidth = artworks[0].offsetWidth + 32; // width + margin
+        let currentPosition = 0;
+        
+        // Clone first and last items for seamless looping
+        const firstItem = artworks[0].cloneNode(true);
+        const lastItem = artworks[artworks.length - 1].cloneNode(true);
+        gallery.appendChild(firstItem);
+        gallery.insertBefore(lastItem, gallery.firstChild);
+        
+        // Set initial position to show first actual item
+        currentPosition = -artworkWidth;
+        gallery.style.transform = `translateX(${currentPosition}px)`;
+        
+        function slideTo(position) {
+            gallery.style.transition = 'transform 0.5s ease';
+            gallery.style.transform = `translateX(${position}px)`;
+            currentPosition = position;
+            
+            // Check if we need to jump to cloned item for seamless looping
+            setTimeout(() => {
+                if (position <= -artworkWidth * (artworks.length + 1)) {
+                    // Jump to first clone without animation
+                    gallery.style.transition = 'none';
+                    currentPosition = -artworkWidth;
+                    gallery.style.transform = `translateX(${currentPosition}px)`;
+                } else if (position >= 0) {
+                    // Jump to last clone without animation
+                    gallery.style.transition = 'none';
+                    currentPosition = -artworkWidth * artworks.length;
+                    gallery.style.transform = `translateX(${currentPosition}px)`;
+                }
+            }, 500);
+        }
+        
+        prevBtn.addEventListener('click', () => {
+            slideTo(currentPosition + artworkWidth);
+        });
+        
+        nextBtn.addEventListener('click', () => {
+            slideTo(currentPosition - artworkWidth);
+        });
+        
+        // Lightbox functionality
+        const lightbox = document.querySelector('.lightbox');
+        const lightboxImg = document.getElementById('lightbox-image');
+        const lightboxTitle = document.getElementById('lightbox-title');
+        const lightboxMedium = document.getElementById('lightbox-medium');
+        const closeBtn = document.querySelector('.close-lightbox');
+        
+        // Add click event to all artwork images
+        document.querySelectorAll('.artwork img').forEach(img => {
+            img.addEventListener('click', function() {
+                const artwork = this.closest('.artwork');
+                lightboxImg.src = this.src;
+                lightboxImg.alt = this.alt;
+                lightboxTitle.textContent = artwork.dataset.title;
+                lightboxMedium.textContent = artwork.dataset.medium;
+                lightbox.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Prevent scrolling
+            });
+        });
+        
+        // Close lightbox
+        closeBtn.addEventListener('click', function() {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+        
+        // Close when clicking outside image
+        lightbox.addEventListener('click', function(e) {
+            if (e.target === lightbox) {
+                lightbox.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+        
+        // Contact button functionality
+        document.querySelector('.contact-btn').addEventListener('click', () => {
+            alert("Thank you for your interest! This website is a test-drive for now and shall be worked on in the future.");
+        });
+    </script>
+</body>
+</html></title>
     <style>
         .header {
             background-color: purple; font-style: oblique;
